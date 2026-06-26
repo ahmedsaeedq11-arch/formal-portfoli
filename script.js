@@ -1,6 +1,8 @@
 /**
  * Ahmed Saeed's Formal Portfolio
+ * PREMIUM Animations Package
  * Vanilla JavaScript - No jQuery, No Inline Scripts
+ * Uses IntersectionObserver & requestAnimationFrame
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,33 +16,363 @@ document.addEventListener('DOMContentLoaded', () => {
     parallaxSpeed: 0.5,
     revealThreshold: 0.15,
     revealDelay: 100,
-    navBreakpoint: 768
+    navBreakpoint: 768,
+    scrambleChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+    particleCount: 30,
+    particleColor: 'rgba(149, 102, 240, 0.6)', // #9566f0 neon purple
+    magneticStrength: 0.3
   };
 
   // ============================================
-  // Smooth Scroll
+  // 1. TEXT SCRAMBLE EFFECT ON HERO NAME
   // ============================================
-  const initSmoothScroll = () => {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
-        const href = anchor.getAttribute('href');
-        if (href === '#') return;
+  const initTextScramble = () => {
+    const heroName = document.querySelector('.hero-name');
+    if (!heroName) return;
+
+    const originalText = heroName.textContent;
+    const scrambleDuration = 1500;
+    const frameDuration = 30;
+    const totalFrames = scrambleDuration / frameDuration;
+    let frame = 0;
+
+    const animateScramble = () => {
+      if (frame < totalFrames) {
+        const progress = frame / totalFrames;
+        // Easing: faster settling at the end
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
         
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          const top = target.getBoundingClientRect().top + window.pageYOffset - CONFIG.scrollOffset;
-          window.scrollTo({
-            top,
-            behavior: 'smooth'
-          });
+        heroName.textContent = originalText
+          .split('')
+          .map((char, index) => {
+            if (char === ' ') return ' ';
+            if (index / originalText.length < easedProgress) {
+              return originalText[index];
+            }
+            return CONFIG.scrambleChars[Math.floor(Math.random() * CONFIG.scrambleChars.length)];
+          })
+          .join('');
+        
+        frame++;
+        requestAnimationFrame(() => setTimeout(animateScramble, frameDuration));
+      } else {
+        heroName.textContent = originalText;
+      }
+    };
+
+    // Start scramble after a short delay
+    setTimeout(animateScramble, 500);
+  };
+
+  // ============================================
+  // 2. FLOATING PARTICLES IN HERO
+  // ============================================
+  const initParticles = () => {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'particles-canvas';
+    canvas.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    `;
+    hero.style.position = 'relative';
+    hero.insertBefore(canvas, hero.firstChild);
+
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+
+    const resizeCanvas = () => {
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    };
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.hue = Math.random() * 30 + 260; // Purple range
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Wrap around edges
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${this.hue}, 70%, 65%, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    const initParticleSystem = () => {
+      resizeCanvas();
+      particles = [];
+      for (let i = 0; i < CONFIG.particleCount; i++) {
+        particles.push(new Particle());
+      }
+    };
+
+    const animateParticles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      animationId = requestAnimationFrame(animateParticles);
+    };
+
+    // Connect particles with lines when close
+    const drawConnections = () => {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(149, 102, 240, ${0.15 * (1 - distance / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
         }
+      }
+    };
+
+    const animateWithConnections = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      drawConnections();
+      animationId = requestAnimationFrame(animateWithConnections);
+    };
+
+    initParticleSystem();
+    animateWithConnections();
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+  };
+
+  // ============================================
+  // 3. MAGNETIC BUTTON HOVER
+  // ============================================
+  const initMagneticButtons = () => {
+    const buttons = document.querySelectorAll('.btn, .nav-link, .social-link, .project-card');
+    
+    buttons.forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const moveX = x * CONFIG.magneticStrength;
+        const moveY = y * CONFIG.magneticStrength;
+
+        button.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        button.style.transition = 'transform 0.1s ease-out';
+      });
+
+      button.addEventListener('mouseleave', () => {
+        button.style.transform = '';
+        button.style.transition = 'transform 0.3s ease-out';
       });
     });
   };
 
   // ============================================
-  // Navigation - Active State on Scroll
+  // 4. SMOOTH SECTION REVEALS (FADE + SLIDE)
+  // ============================================
+  const initRevealAnimations = () => {
+    // Create reveal elements for all major sections
+    const sections = document.querySelectorAll('.about, .projects, .skills, .certificates, .contact');
+    
+    sections.forEach(section => {
+      section.classList.add('reveal-section');
+      
+      // Add reveal-child class to direct children
+      const children = section.querySelectorAll('.section-header, .about-grid, .projects-grid, .skills-grid, .certificates-grid, .contact-grid, .about-image, .about-content');
+      children.forEach((child, index) => {
+        child.classList.add('reveal-child');
+        child.style.setProperty('--reveal-delay', `${index * 100}ms`);
+      });
+    });
+
+    const revealElements = document.querySelectorAll('.reveal-child, .section-header, .project-card, .skill-category, .certificate-card');
+    
+    if (revealElements.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: CONFIG.revealThreshold
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.style.getPropertyValue('--reveal-delay') || 
+            (CONFIG.revealDelay * index);
+          
+          setTimeout(() => {
+            entry.target.classList.add('revealed');
+          }, parseInt(delay));
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => observer.observe(el));
+  };
+
+  // ============================================
+  // 5. TYPING EFFECT ON HERO SUBTITLE
+  // ============================================
+  const initTypingEffect = () => {
+    const subtitle = document.querySelector('.hero-subtitle');
+    if (!subtitle) return;
+
+    const originalText = subtitle.textContent;
+    subtitle.textContent = '';
+    subtitle.style.borderRight = '2px solid #9566f0';
+    
+    let charIndex = 0;
+    const typeSpeed = 80;
+    const startDelay = 2000; // Start after text scramble finishes
+
+    const typeChar = () => {
+      if (charIndex < originalText.length) {
+        subtitle.textContent += originalText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeChar, typeSpeed);
+      } else {
+        // Blink cursor then hide it
+        setTimeout(() => {
+          subtitle.style.borderRight = 'none';
+        }, 1500);
+      }
+    };
+
+    setTimeout(typeChar, startDelay);
+  };
+
+  // ============================================
+  // 6. IMAGE PARALLAX ON SCROLL
+  // ============================================
+  const initImageParallax = () => {
+    const images = document.querySelectorAll('.hero-bg, .about-image img, .project-card img');
+    
+    if (images.length === 0) return;
+
+    let ticking = false;
+
+    const updateParallax = () => {
+      const scrollY = window.pageYOffset;
+
+      images.forEach(img => {
+        const parent = img.closest('section') || img.parentElement;
+        if (!parent) return;
+
+        const rect = parent.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (inView) {
+          const speed = img.classList.contains('hero-bg') ? CONFIG.parallaxSpeed : 0.2;
+          const yPos = (scrollY - parent.offsetTop) * speed;
+          img.style.transform = `translateY(${yPos}px) scale(1.1)`;
+        }
+      });
+
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    });
+  };
+
+  // ============================================
+  // 7. SKILL BARS ANIMATE ON SCROLL
+  // ============================================
+  const initSkillBars = () => {
+    const skillBars = document.querySelectorAll('.skill-bar');
+    
+    if (skillBars.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
+
+    const animateSkillBar = (bar) => {
+      const progress = bar.querySelector('.skill-progress');
+      if (!progress || bar.classList.contains('animated')) return;
+
+      const targetWidth = progress.style.getPropertyValue('--progress') || '0%';
+      
+      bar.classList.add('animated');
+      progress.style.width = '0%';
+      
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          progress.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
+          progress.style.width = targetWidth;
+        }, 100);
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateSkillBar(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    skillBars.forEach(bar => observer.observe(bar));
+  };
+
+  // ============================================
+  // 8. NAVIGATION ACTIVE STATE
   // ============================================
   const initNavState = () => {
     const sections = document.querySelectorAll('section[id]');
@@ -86,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
           updateActiveNav();
           ticking = false;
         });
@@ -98,17 +430,24 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ============================================
-  // Mobile Navigation Toggle
+  // 9. MOBILE MENU TOGGLE
   // ============================================
   const initMobileNav = () => {
     const toggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav, .navbar');
+    const navMenu = document.querySelector('.nav-menu');
 
     if (!toggle || !nav) return;
 
     toggle.addEventListener('click', () => {
       nav.classList.toggle('active');
       toggle.classList.toggle('active');
+      
+      // Animate hamburger to X
+      const hamburger = toggle.querySelector('.hamburger');
+      if (hamburger) {
+        hamburger.classList.toggle('active');
+      }
     });
 
     // Close mobile nav when clicking a link
@@ -116,155 +455,85 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener('click', () => {
         nav.classList.remove('active');
         toggle.classList.remove('active');
-      });
-    });
-  };
-
-  // ============================================
-  // Section Reveal on Scroll (IntersectionObserver)
-  // ============================================
-  const initRevealAnimations = () => {
-    const revealElements = document.querySelectorAll(
-      '.reveal, .reveal-left, .reveal-right, .reveal-up, .fade-in, .slide-up'
-    );
-
-    if (revealElements.length === 0) return;
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: CONFIG.revealThreshold
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          // Add delay for staggered animations
-          const delay = entry.target.dataset.delay || CONFIG.revealDelay * 
-            Array.from(entry.target.parentNode.children).filter(el => 
-              el.classList.contains('reveal') || 
-              el.classList.contains('reveal-left') ||
-              el.classList.contains('reveal-right') ||
-              el.classList.contains('reveal-up')
-            ).indexOf(entry.target);
-
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, delay);
-
-          observer.unobserve(entry.target);
+        const hamburger = toggle.querySelector('.hamburger');
+        if (hamburger) {
+          hamburger.classList.remove('active');
         }
       });
-    }, observerOptions);
+    });
 
-    revealElements.forEach(el => observer.observe(el));
-  };
-
-  // ============================================
-  // Hero Parallax Effect
-  // ============================================
-  const initParallax = () => {
-    const hero = document.querySelector('.hero, .hero-section, header');
-    const heroBg = document.querySelector('.hero-bg, .hero-background, .hero img');
-
-    if (!hero || !heroBg) return;
-
-    let ticking = false;
-
-    const updateParallax = () => {
-      const scrollY = window.pageYOffset;
-      const heroTop = hero.offsetTop;
-      const heroHeight = hero.offsetHeight;
-
-      // Only apply parallax when hero is in view
-      if (scrollY <= heroTop + heroHeight && scrollY + window.innerHeight >= heroTop) {
-        const relativeScroll = scrollY - heroTop;
-        const translateY = relativeScroll * CONFIG.parallaxSpeed;
-        heroBg.style.transform = `translateY(${translateY}px)`;
-      }
-
-      ticking = false;
-    };
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+        const hamburger = toggle.querySelector('.hamburger');
+        if (hamburger) {
+          hamburger.classList.remove('active');
+        }
       }
     });
   };
 
   // ============================================
-  // Project Card Hover Effects
+  // SMOOTH SCROLL
   // ============================================
-  const initProjectCardHovers = () => {
-    const projectCards = document.querySelectorAll('.project-card, .project-item, .work-item');
-
-    projectCards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.classList.add('hovered');
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.classList.remove('hovered');
-      });
-
-      // Add 3D tilt effect on mousemove
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+  const initSmoothScroll = () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const top = target.getBoundingClientRect().top + window.pageYOffset - CONFIG.scrollOffset;
+          window.scrollTo({
+            top,
+            behavior: 'smooth'
+          });
+        }
       });
     });
   };
 
   // ============================================
-  // Project Card Image Overlay Effect
-  // ============================================
-  const initProjectOverlay = () => {
-    const projectImages = document.querySelectorAll('.project-card img, .project-item img');
-
-    projectImages.forEach(img => {
-      const overlay = document.createElement('div');
-      overlay.className = 'project-overlay';
-      
-      const parent = img.parentNode;
-      if (!parent.classList.contains('project-card') && !parent.classList.contains('project-item')) {
-        parent.style.position = 'relative';
-        parent.appendChild(overlay);
-      }
-    });
-  };
-
-  // ============================================
-  // Scroll Progress Indicator
+  // SCROLL PROGRESS INDICATOR
   // ============================================
   const initScrollProgress = () => {
     const progressBar = document.querySelector('.scroll-progress, .progress-bar');
 
-    if (!progressBar) return;
+    if (!progressBar) {
+      // Create one if it doesn't exist
+      const bar = document.createElement('div');
+      bar.className = 'scroll-progress';
+      bar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #9566f0, #f4c842);
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.1s linear;
+      `;
+      document.body.appendChild(bar);
+    }
 
     const updateProgress = () => {
       const scrollTop = window.pageYOffset;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (scrollTop / docHeight) * 100;
-      progressBar.style.width = `${progress}%`;
+      const existingBar = document.querySelector('.scroll-progress');
+      if (existingBar) {
+        existingBar.style.width = `${progress}%`;
+      }
     };
 
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
           updateProgress();
           ticking = false;
         });
@@ -274,76 +543,75 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ============================================
-  // Back to Top Button
+  // CURSOR GLOW EFFECT
   // ============================================
-  const initBackToTop = () => {
-    const backToTop = document.querySelector('.back-to-top, .scroll-top');
+  const initCursorGlow = () => {
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-glow';
+    cursor.style.cssText = `
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(149, 102, 240, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+    `;
+    document.body.appendChild(cursor);
 
-    if (!backToTop) return;
-
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 500) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  };
-
-  // ============================================
-  // Cursor Effect for Links
-  // ============================================
-  const initCursorEffect = () => {
-    const cursor = document.querySelector('.cursor');
-    const links = document.querySelectorAll('a, button, .project-card');
-
-    if (!cursor || links.length === 0) return;
-
-    links.forEach(link => {
-      link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
+    let cursorX = 0, cursorY = 0;
+    let targetX = 0, targetY = 0;
 
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      targetX = e.clientX;
+      targetY = e.clientY;
     });
+
+    const animateCursor = () => {
+      cursorX += (targetX - cursorX) * 0.1;
+      cursorY += (targetY - cursorY) * 0.1;
+      cursor.style.left = `${cursorX}px`;
+      cursor.style.top = `${cursorY}px`;
+      requestAnimationFrame(animateCursor);
+    };
+
+    animateCursor();
   };
 
   // ============================================
-  // Text Reveal Animation
+  // PROJECT CARD 3D TILT
   // ============================================
-  const initTextReveal = () => {
-    const textElements = document.querySelectorAll('.text-reveal, .split-text');
+  const initProjectTilt = () => {
+    const projectCards = document.querySelectorAll('.project-card');
 
-    textElements.forEach(el => {
-      const text = el.textContent;
-      el.innerHTML = '';
-      el.setAttribute('aria-label', text);
+    projectCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
 
-      text.split('').forEach((char, i) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.animationDelay = `${i * 50}ms`;
-        el.appendChild(span);
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        card.style.transition = 'transform 0.1s ease-out';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s ease-out';
       });
     });
   };
 
   // ============================================
-  // Navbar Hide/Show on Scroll
+  // NAVBAR HIDE/SHOW ON SCROLL
   // ============================================
   const initNavHideOnScroll = () => {
-    const navbar = document.querySelector('.navbar, .nav, header');
+    const navbar = document.querySelector('.navbar');
     if (!navbar) return;
 
     let lastScroll = 0;
@@ -367,21 +635,76 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ============================================
-  // Initialize All Features
+  // COUNTER ANIMATION
+  // ============================================
+  const initCounters = () => {
+    const counters = document.querySelectorAll('[data-counter]');
+    
+    if (counters.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
+
+    const animateCounter = (counter) => {
+      if (counter.classList.contains('counted')) return;
+      
+      const target = parseInt(counter.getAttribute('data-counter'));
+      const duration = 2000;
+      const startTime = performance.now();
+      
+      const updateCounter = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(target * eased);
+        
+        counter.textContent = current;
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target;
+          counter.classList.add('counted');
+        }
+      };
+
+      requestAnimationFrame(updateCounter);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    counters.forEach(counter => observer.observe(counter));
+  };
+
+  // ============================================
+  // INITIALIZE ALL FEATURES
   // ============================================
   const init = () => {
     initSmoothScroll();
     initNavState();
     initMobileNav();
     initRevealAnimations();
-    initParallax();
-    initProjectCardHovers();
-    initProjectOverlay();
+    initTextScramble();
+    initTypingEffect();
+    initParticles();
+    initMagneticButtons();
+    initImageParallax();
+    initSkillBars();
     initScrollProgress();
-    initBackToTop();
-    initCursorEffect();
-    initTextReveal();
+    initCursorGlow();
+    initProjectTilt();
     initNavHideOnScroll();
+    initCounters();
   };
 
   // Run initialization
