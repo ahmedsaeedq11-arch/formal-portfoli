@@ -1,330 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ahmed Saeed | Formal Portfolio</title>
-  <meta name="description" content="Professional portfolio of Ahmed Saeed — Events, Catering, and Hospitality">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Saeed | Interior & Furniture Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress"></div>
-
-  <!-- Custom Cursor -->
-  <div class="cursor"></div>
-
-  <!-- ============================================
-       NAVIGATION
-  ============================================= -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#" class="nav-logo">AS</a>
-
-      <button class="nav-toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <ul class="nav">
-        <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#experience" class="nav-link">Experience</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#gallery" class="nav-link">Gallery</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- ============================================
-       HERO SECTION
-  ============================================= -->
-  <section id="home" class="hero">
-    <div class="hero-bg-wrapper">
-      <div class="hero-bg"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-subtitle text-reveal">Welcome to my portfolio</p>
-      <h1 class="hero-title">
-        <span class="text-reveal">Ahmed Saeed</span>
-      </h1>
-      <p class="hero-tagline text-reveal">Events &bull; Catering &bull; Hospitality</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="#contact" class="btn btn-outline">Get in Touch</a>
-      </div>
-    </div>
-    <div class="hero-scroll-indicator">
-      <span>&#8595;</span>
-    </div>
-  </section>
-
-  <!-- ============================================
-       ABOUT SECTION
-  ============================================= -->
-  <section id="about" class="about section">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-subtitle">About Me</p>
-        <h2 class="section-title">Who I Am</h2>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-image reveal-left">
-          <div class="image-frame">
-            <img src="./assets/photo.jpg" alt="Ahmed Saeed" loading="lazy">
-          </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">AS</a>
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#certificates" class="nav-link">Certificates</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span class="hamburger"></span></button>
         </div>
-
-        <div class="about-text">
-          <p class="reveal-up">With over a decade of experience in the events, catering, and hospitality industry, I have had the privilege of working with prestigious brands and managing high-profile occasions.</p>
-          <p class="reveal-up">My passion lies in creating memorable experiences — from intimate gatherings to large-scale corporate events. I bring meticulous attention to detail, creative flair, and a deep understanding of client needs.</p>
-          <p class="reveal-up">I am currently open to new opportunities and collaborations in the events and hospitality sector.</p>
-
-          <div class="about-stats reveal-up">
-            <div class="stat-item">
-              <span class="stat-number">10+</span>
-              <span class="stat-label">Years Experience</span>
+    </nav>
+    <section id="hero" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Interior & Furniture Design</div>
+            <h1 class="hero-title"><span class="hero-name">Ahmed Saeed</span></h1>
+            <p class="hero-subtitle">Innovation University</p>
+            <p class="hero-description">Crafting sophisticated spatial experiences through innovative interior design and furniture concepts. Where functionality meets artistic expression.</p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
             </div>
-            <div class="stat-item">
-              <span class="stat-number">50+</span>
-              <span class="stat-label">Events Managed</span>
+            <div class="hero-socials">
+                <a href="https://instagram.com/ahmedsaeed" target="_blank" rel="noopener" class="social-link" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                <a href="https://behance.net/ahmedsaeed" target="_blank" rel="noopener" class="social-link" aria-label="Behance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7h-7"></path><path d="M2 12h7"></path><path d="M22 12h-7"></path><path d="M2 17h7"></path><path d="M22 17h-4"></path><path d="M7 7h4"></path><path d="M7 12h4"></path><path d="M7 17h4"></path></svg></a>
+                <a href="https://linkedin.com/in/ahmedsaeed" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
             </div>
-            <div class="stat-item">
-              <span class="stat-number">15+</span>
-              <span class="stat-label">Brand Partnerships</span>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+        <div class="hero-decoration"><div class="deco-circle deco-1"></div><div class="deco-circle deco-2"></div><div class="deco-line deco-1"></div><div class="deco-line deco-2"></div></div>
+    </section>
 
-  <!-- ============================================
-       EXPERIENCE SECTION
-  ============================================= -->
-  <section id="experience" class="experience section">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-subtitle">My Journey</p>
-        <h2 class="section-title">Experience</h2>
-      </div>
-
-      <div class="timeline">
-        <div class="timeline-item reveal-up">
-          <div class="timeline-date">2023 – Present</div>
-          <div class="timeline-content">
-            <h3 class="timeline-title">Senior Events Manager</h3>
-            <p class="timeline-company">Zara Events & Catering</p>
-            <p class="timeline-description">Leading end-to-end event management for corporate and private clients. Managing teams of 20+ staff and budgets exceeding AED 500,000 per event.</p>
-          </div>
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Discover</span><h2 class="section-title">About Me</h2></div>
+            <div class="about-grid">
+                <div class="about-image"><div class="about-image-wrapper"><div class="about-placeholder"><span>AS</span></div><div class="about-image-border"></div></div></div>
+                <div class="about-content">
+                    <h3 class="about-heading">Creating Impactful Spaces</h3>
+                    <p class="about-text">Hello! I am Ahmed Saeed, an interior and furniture design student at Innovation University. My passion lies in creating spaces that tell stories, evoke emotions, and serve functional purposes while maintaining aesthetic excellence.</p>
+                    <p class="about-text">With a keen eye for detail and a deep understanding of spatial dynamics, I specialize in transforming ordinary spaces into extraordinary experiences. My work balances contemporary design principles with timeless elegance.</p>
+                    <div class="about-info">
+                        <div class="info-item"><span class="info-label">Education</span><span class="info-value">Innovation University</span></div>
+                        <div class="info-item"><span class="info-label">Focus</span><span class="info-value">Interior & Furniture Design</span></div>
+                        <div class="info-item"><span class="info-label">Location</span><span class="info-value">Egypt</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="timeline-item reveal-up">
-          <div class="timeline-date">2020 – 2023</div>
-          <div class="timeline-content">
-            <h3 class="timeline-title">Events Manager</h3>
-            <p class="timeline-company">Grand Kitchen Catering</p>
-            <p class="timeline-description">Oversaw catering operations for weddings, galas, and corporate functions. Introduced innovative menu planning and service protocols that increased client satisfaction by 35%.</p>
-          </div>
+    </section>
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Portfolio</span><h2 class="section-title">Featured Projects</h2></div>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-image"><img src="./assets/zara-banner.png" alt="ZaraZ Menswear Rebrand" loading="lazy"><div class="project-overlay"><span class="project-category">Commercial Interior</span></div></div>
+                    <div class="project-content"><h3 class="project-title">ZaraZ Menswear Rebrand</h3><p class="project-description">A complete interior redesign for a contemporary menswear brand, featuring sleek display units, premium material finishes, and an elevated shopping experience.</p><div class="project-tags"><span class="tag">Retail Design</span><span class="tag">Brand Identity</span><span class="tag">3DS Max</span></div></div>
+                </article>
+                <article class="project-card">
+                    <div class="project-image"><img src="./assets/kitchen-banner.png" alt="Wabi-Sabi Kitchen" loading="lazy"><div class="project-overlay"><span class="project-category">Residential Design</span></div></div>
+                    <div class="project-content"><h3 class="project-title">Wabi-Sabi Kitchen</h3><p class="project-description">A serene kitchen design inspired by Japanese aesthetics, emphasizing natural materials, imperfect beauty, and functional simplicity in harmony with living spaces.</p><div class="project-tags"><span class="tag">Kitchen Design</span><span class="tag">Wabi-Sabi</span><span class="tag">AutoCAD</span></div></div>
+                </article>
+                <article class="project-card">
+                    <div class="project-image"><img src="./assets/booth-banner.jpg" alt="El Abd Booth" loading="lazy"><div class="project-overlay"><span class="project-category">Exhibition Design</span></div></div>
+                    <div class="project-content"><h3 class="project-title">El Abd Booth</h3><p class="project-description">A dynamic trade show booth design for El Abd, combining brand visibility with interactive customer engagement zones and distinctive architectural elements.</p><div class="project-tags"><span class="tag">Exhibition</span><span class="tag">Trade Show</span><span class="tag">Blender</span></div></div>
+                </article>
+            </div>
         </div>
+    </section>
 
-        <div class="timeline-item reveal-up">
-          <div class="timeline-date">2017 – 2020</div>
-          <div class="timeline-content">
-            <h3 class="timeline-title">Assistant Events Coordinator</h3>
-            <p class="timeline-company">Premium Events Co.</p>
-            <p class="timeline-description">Supported senior coordinators in logistical planning, vendor management, and on-site execution of events with 200–1,500 guests.</p>
-          </div>
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Expertise</span><h2 class="section-title">Skills & Tools</h2></div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></div>
+                    <h3 class="skill-title">Design Software</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item"><span class="skill-name">3DS Max</span><div class="skill-bar"><div class="skill-progress" style="--progress: 95%"></div></div></li>
+                        <li class="skill-item"><span class="skill-name">AutoCAD</span><div class="skill-bar"><div class="skill-progress" style="--progress: 90%"></div></div></li>
+                        <li class="skill-item"><span class="skill-name">Blender</span><div class="skill-bar"><div class="skill-progress" style="--progress: 85%"></div></div></li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+                    <h3 class="skill-title">Design Skills</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item"><span class="skill-name">Interior Design</span><div class="skill-bar"><div class="skill-progress" style="--progress: 95%"></div></div></li>
+                        <li class="skill-item"><span class="skill-name">Furniture Design</span><div class="skill-bar"><div class="skill-progress" style="--progress: 90%"></div></div></li>
+                        <li class="skill-item"><span class="skill-name">Space Planning</span><div class="skill-bar"><div class="skill-progress" style="--progress: 88%"></div></div></li>
+                        <li class="skill-item"><span class="skill-name">3D Visualization</span><div class="skill-bar"><div class="skill-progress" style="--progress: 85%"></div></div></li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+                    <h3 class="skill-title">Languages</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item"><span class="skill-name">Arabic</span><div class="skill-bar"><div class="skill-progress" style="--progress: 100%"></div></div><span class="skill-level">Native</span></li>
+                        <li class="skill-item"><span class="skill-name">English</span><div class="skill-bar"><div class="skill-progress" style="--progress: 80%"></div></div><span class="skill-level">Professional</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       PROJECTS / WORK SECTION
-  ============================================= -->
-  <section id="projects" class="projects section">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-subtitle">Portfolio</p>
-        <h2 class="section-title">Featured Projects</h2>
-      </div>
-
-      <div class="projects-grid">
-
-        <article class="project-card reveal">
-          <div class="project-image">
-            <img src="./assets/zara-banner.png" alt="Zara VIP Gala" loading="lazy">
-            <div class="project-overlay">
-              <span class="project-category">Corporate Gala</span>
+    </section>
+    <section id="certificates" class="certificates">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Achievements</span><h2 class="section-title">Certificates</h2></div>
+            <div class="certificates-grid">
+                <div class="certificate-card"><div class="certificate-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div><div class="certificate-content"><h3 class="certificate-title">AutoCAD Professional Certification</h3><p class="certificate-issuer">Autodesk Authorized Training Center</p><p class="certificate-date">2024</p></div></div>
+                <div class="certificate-card"><div class="certificate-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div><div class="certificate-content"><h3 class="certificate-title">3DS Max Design Visualization</h3><p class="certificate-issuer">Innovation University</p><p class="certificate-date">2024</p></div></div>
+                <div class="certificate-card"><div class="certificate-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div><div class="certificate-content"><h3 class="certificate-title">Interior Design Fundamentals</h3><p class="certificate-issuer">Professional Development Program</p><p class="certificate-date">2023</p></div></div>
             </div>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Zara VIP Gala</h3>
-            <p class="project-description">A prestigious annual gala for 800+ guests at a luxury venue, featuring a multi-course fine dining experience and live entertainment.</p>
-            <div class="project-tags">
-              <span class="tag">Corporate</span>
-              <span class="tag">Fine Dining</span>
-              <span class="tag">Gala</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-image">
-            <img src="./assets/kitchen-banner.png" alt="Grand Kitchen Catering" loading="lazy">
-            <div class="project-overlay">
-              <span class="project-category">Catering</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Grand Kitchen Catering</h3>
-            <p class="project-description">Complete catering operations for high-profile weddings and private celebrations, serving 300–1,200 guests with bespoke menus.</p>
-            <div class="project-tags">
-              <span class="tag">Wedding</span>
-              <span class="tag">Catering</span>
-              <span class="tag">Bespoke Menu</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-image">
-            <img src="./assets/booth-banner.jpg" alt="International Trade Exhibition" loading="lazy">
-            <div class="project-overlay">
-              <span class="project-category">Exhibition</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">International Trade Exhibition</h3>
-            <p class="project-description">Managed a 50-booth international trade exhibition, coordinating exhibitors, hospitality lounges, and VIP meet-and-greet services.</p>
-            <div class="project-tags">
-              <span class="tag">Exhibition</span>
-              <span class="tag">Hospitality</span>
-              <span class="tag">VIP Services</span>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       GALLERY SECTION
-  ============================================= -->
-  <section id="gallery" class="gallery section">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-subtitle">Moments</p>
-        <h2 class="section-title">Gallery</h2>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gallery-item reveal">
-          <img src="./assets/zara-banner.png" alt="Zara event setup" loading="lazy">
         </div>
-        <div class="gallery-item reveal">
-          <img src="./assets/kitchen-banner.png" alt="Catering spread" loading="lazy">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="./assets/booth-banner.jpg" alt="Exhibition booth" loading="lazy">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="./assets/photo.jpg" alt="Portrait" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       CONTACT SECTION
-  ============================================= -->
-  <section id="contact" class="contact section">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-subtitle">Get in Touch</p>
-        <h2 class="section-title">Contact</h2>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-info reveal-left">
-          <p class="contact-intro">I am currently open to new opportunities and collaborations. Whether you are planning a corporate event, a private celebration, or seeking an experienced events professional, I would love to hear from you.</p>
-
-          <div class="contact-details">
-            <div class="contact-item">
-              <span class="contact-label">Email</span>
-              <a href="mailto:ahmed.saeed@example.com" class="contact-value">ahmed.saeed@example.com</a>
+    </section>
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Connect</span><h2 class="section-title">Get In Touch</h2></div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 class="contact-heading">Lets Create Together</h3>
+                    <p class="contact-text">I am always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hello, feel free to reach out!</p>
+                    <div class="contact-details">
+                        <div class="contact-item"><div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div><span>ahmed.saeed@email.com</span></div>
+                        <div class="contact-item"><div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div><span>Egypt</span></div>
+                    </div>
+                    <div class="contact-socials">
+                        <a href="https://instagram.com/ahmedsaeed" target="_blank" rel="noopener" class="contact-social"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</a>
+                        <a href="https://behance.net/ahmedsaeed" target="_blank" rel="noopener" class="contact-social"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7h-7"></path><path d="M2 12h7"></path><path d="M22 12h-7"></path><path d="M2 17h7"></path><path d="M22 17h-4"></path><path d="M7 7h4"></path><path d="M7 12h4"></path><path d="M7 17h4"></path></svg>Behance</a>
+                        <a href="https://linkedin.com/in/ahmedsaeed" target="_blank" rel="noopener" class="contact-social"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>LinkedIn</a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group"><label for="name" class="form-label">Name</label><input type="text" id="name" name="name" class="form-input" placeholder="Your name" required></div>
+                    <div class="form-group"><label for="email" class="form-label">Email</label><input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required></div>
+                    <div class="form-group"><label for="message" class="form-label">Message</label><textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project..." required></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-submit"><span>Send Message</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+                </form>
             </div>
-            <div class="contact-item">
-              <span class="contact-label">Phone</span>
-              <a href="tel:+971501234567" class="contact-value">+971 50 123 4567</a>
-            </div>
-            <div class="contact-item">
-              <span class="contact-label">Location</span>
-              <span class="contact-value">Dubai, UAE</span>
-            </div>
-          </div>
-
-          <div class="contact-social">
-            <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
-            <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
-            <a href="#" class="social-link" aria-label="WhatsApp">WhatsApp</a>
-          </div>
         </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">AS</div>
+                <p class="footer-text">Ahmed Saeed - Interior & Furniture Designer</p>
+                <div class="footer-socials">
+                    <a href="https://instagram.com/ahmedsaeed" target="_blank" rel="noopener" class="footer-social" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    <a href="https://behance.net/ahmedsaeed" target="_blank" rel="noopener" class="footer-social" aria-label="Behance"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7h-7"></path><path d="M2 12h7"></path><path d="M22 12h-7"></path><path d="M2 17h7"></path><path d="M22 17h-4"></path><path d="M7 7h4"></path><path d="M7 12h4"></path><path d="M7 17h4"></path></svg></a>
+                    <a href="https://linkedin.com/in/ahmedsaeed" target="_blank" rel="noopener" class="footer-social" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Ahmed Saeed. All rights reserved.</p></div>
+        </div>
+    </footer>
 
-        <form class="contact-form reveal-right" id="contact-form">
-          <div class="form-group">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" id="name" name="name" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" id="email" name="email" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="subject" class="form-label">Subject</label>
-            <input type="text" id="subject" name="subject" class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="message" class="form-label">Message</label>
-            <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-          <div class="form-status" id="form-status"></div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       FOOTER
-  ============================================= -->
-  <footer class="footer">
-    <div class="container">
-      <p class="footer-text">&copy; 2026 Ahmed Saeed. All rights reserved.</p>
-      <p class="footer-note">Crafted with care</p>
-    </div>
-  </footer>
-
-  <!-- ============================================
-       BACK TO TOP
-  ============================================= -->
-  <button class="back-to-top" aria-label="Back to top">&#8593;</button>
-
-  <!-- JavaScript -->
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
