@@ -68,30 +68,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. FLOATING PARTICLES IN HERO
   // ============================================
   const initParticles = () => {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-
-    const canvas = document.createElement('canvas');
-    canvas.className = 'particles-canvas';
-    canvas.style.cssText = `
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    `;
-    hero.style.position = 'relative';
-    hero.insertBefore(canvas, hero.firstChild);
+    const canvas = document.getElementById('particles');
+    if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     let particles = [];
     let animationId;
 
     const resizeCanvas = () => {
-      canvas.width = hero.offsetWidth;
-      canvas.height = hero.offsetHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     class Particle {
@@ -136,18 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const animateParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-
-      animationId = requestAnimationFrame(animateParticles);
-    };
-
-    // Connect particles with lines when close
     const drawConnections = () => {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -329,34 +303,31 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ============================================
-  // 7. SKILL BARS ANIMATE ON SCROLL
+  // 7. SKILL BARS ANIMATE ON SCROLL (HR-Style)
   // ============================================
   const initSkillBars = () => {
-    const skillBars = document.querySelectorAll('.skill-bar');
+    const skillBars = document.querySelectorAll('.skill-hr-fill');
     
     if (skillBars.length === 0) return;
 
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5
+      threshold: 0.3
     };
 
-    const animateSkillBar = (bar) => {
-      const progress = bar.querySelector('.skill-progress');
-      if (!progress || bar.classList.contains('animated')) return;
+    const animateSkillBar = (fill) => {
+      if (fill.classList.contains('animated')) return;
 
-      const targetWidth = progress.style.getPropertyValue('--progress') || '0%';
+      const targetProgress = fill.getAttribute('data-progress');
+      if (!targetProgress) return;
+
+      fill.classList.add('animated');
       
-      bar.classList.add('animated');
-      progress.style.width = '0%';
-      
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          progress.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
-          progress.style.width = targetWidth;
-        }, 100);
-      });
+      // Small delay before starting animation
+      setTimeout(() => {
+        fill.style.width = targetProgress + '%';
+      }, 100);
     };
 
     const observer = new IntersectionObserver((entries) => {
