@@ -285,9 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const inView = rect.top < window.innerHeight && rect.bottom > 0;
 
         if (inView) {
-          const speed = img.classList.contains('hero-bg') ? CONFIG.parallaxSpeed : 0.2;
+          const speed = img.classList.contains('hero-bg') ? CONFIG.parallaxSpeed : 0.05;
           const yPos = (scrollY - parent.offsetTop) * speed;
-          img.style.transform = `translateY(${yPos}px) scale(1.1)`;
+          img.style.transform = `translateY(${yPos}px) scale(1.02)`;
         }
       });
 
@@ -567,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rotateX = (y - centerY) / 15;
         const rotateY = (centerX - x) / 15;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX * 0.1}deg) rotateY(${rotateY * 0.1}deg) scale(1.01)`;
         card.style.transition = 'transform 0.1s ease-out';
       });
 
